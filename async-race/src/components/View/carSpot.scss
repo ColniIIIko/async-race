@@ -1,0 +1,17 @@
+.car-road{
+    display: inline-block;
+    width: 90vw;
+    height: 5px;
+    border-bottom: 3px dashed #000;
+    position: relative;
+}
+
+.car-road::after{
+    content: '';
+    position: absolute;
+    right: 10%;
+    bottom: 0;
+    background-image: url('https://www.svgrepo.com/show/26990/flag.svg');
+    height: 40px;
+    width: 40px;
+}
