@@ -3,10 +3,15 @@ import { Car } from '../types/types';
 import { CarSpot } from '../View/CarSpot';
 
 const LIMIT = 7;
+enum paginationMove {
+    forward = 1,
+    backward = -1,
+}
 
 export class Garage {
     readonly garageController: GarageController;
     page: number;
+    carAmount: number = 0;
 
     constructor() {
         this.garageController = new GarageController();
@@ -19,7 +24,7 @@ export class Garage {
         document.querySelector('body')?.append(garageClone);
 
         this.setClickHandlers();
-
+        this.setPaginationHandler();
         this.update();
 
         this.garageController.getCars({ _limit: LIMIT, _page: this.page }).then((cars: Car[]) => {
@@ -29,17 +34,7 @@ export class Garage {
         });
     }
 
-    updateCarAmount() {
-        this.garageController.getCarAmount(LIMIT).then((amount) => {
-            (document.querySelector('.garage__title') as HTMLElement)!.textContent = `Garage (${amount.toString()})`;
-        });
-    }
-
-    updatePage() {
-        (document.querySelector('.garage__page') as HTMLElement)!.textContent = `Page #(${this.page})`;
-    }
-
-    setClickHandlers() {
+    private setClickHandlers() {
         const createCarBtn = document.querySelector('.create-car__btn') as HTMLElement;
         createCarBtn.addEventListener('click', (event) => {
             const carName = (document.querySelector('.create-car-name') as HTMLInputElement).value;
@@ -48,15 +43,45 @@ export class Garage {
                 .createCar({ color: carColor, name: carName })
                 .then((response) => (response ? response.json() : null))
                 .then((car: Car) => {
-                    car && CarSpot.draw(car);
+                    if (car && this.carAmount < LIMIT * this.page) CarSpot.draw(car);
                 });
             this.update();
             event.preventDefault();
         });
     }
 
-    update() {
-        this.updateCarAmount();
-        this.updatePage();
+    private setPaginationHandler() {
+        const pagination = (move: paginationMove) => {
+            document.querySelector('.garage-spots')!.innerHTML = '';
+            this.garageController.getCars({ _limit: LIMIT, _page: (this.page += move) }).then((cars: Car[]) => {
+                cars.forEach((car) => {
+                    CarSpot.draw(car);
+                });
+            });
+            this.update();
+        };
+
+        const forwardBtn = document.querySelector('.pagination-control__forward') as HTMLButtonElement;
+        forwardBtn.addEventListener('click', () => {
+            if (this.page * LIMIT < this.carAmount) {
+                pagination(paginationMove.forward);
+            }
+        });
+
+        const backwardBtn = document.querySelector('.pagination-control__backward') as HTMLButtonElement;
+        backwardBtn.addEventListener('click', () => {
+            if (this.page !== 1) {
+                pagination(paginationMove.backward);
+            }
+        });
+    }
+
+    private async update() {
+        this.carAmount = await this.garageController.getCarAmount(LIMIT);
+        (document.querySelector(
+            '.garage__title'
+        ) as HTMLElement)!.textContent = `Garage (${this.carAmount.toString()})`;
+
+        (document.querySelector('.garage__page') as HTMLElement)!.textContent = `Page #(${this.page})`;
     }
 }
