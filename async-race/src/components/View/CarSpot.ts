@@ -12,6 +12,6 @@ export class CarSpot {
             path.style.fill = car.color;
         });
 
-        document.querySelector('body')?.append(spotClone);
+        document.querySelector('.garage')?.append(spotClone);
     }
 }

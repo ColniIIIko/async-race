@@ -8,8 +8,30 @@
   </head>
   <body>
 
+    <template id="root">
+      <button class="garage-btn">To garage</button>
+      <button class="winners-btn">To Winners</button>
+    </template>
+
     <template id="garage">
-      
+      <div class="garage">
+        <div class="create-car">
+          <form class="create-car__form">
+            <h3>Create</h3>
+            <input type="text" class="create-car-name">
+            <input type="color" class="create-car-color">
+          </form>
+        </div>
+        <dvi class="edit-car">
+          <form class="edit-car__form">
+            <h3>Edit</h3>
+            <input type="text" class="edit-car-name">
+            <input type="color" class="edit-car-color">
+          </form>
+        </dvi>
+        <h1 class="garage__title">Garage</h1>
+        <p class="garage__page"></p>
+      </div>
     </template>
 
     <template id="car-spot">

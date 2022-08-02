@@ -1,3 +1,14 @@
+.car-spot{
+    display: flex;
+    flex-direction: column;
+}
+
+.car-control{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
 .car-road{
     display: inline-block;
     width: 90vw;

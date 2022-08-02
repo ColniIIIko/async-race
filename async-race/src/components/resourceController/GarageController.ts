@@ -1,17 +1,18 @@
-import { Car } from '../types/types';
+import { Car, getOptions } from '../types/types';
+import { toQueryString } from './QueyString';
 
 const URL = 'http://127.0.0.1:3000/garage';
 
 export class GarageController {
-    async getCars() {
+    async getCars(options?: getOptions) {
         try {
-            const response: Response = await fetch(URL);
+            const response: Response = await fetch(`${URL}?${options ? toQueryString(options) : ''}`);
             const cars: Car[] = await response.json();
             return cars;
         } catch (error) {
             // TODO Error Handler
 
-            return false;
+            return Promise.reject();
         }
     }
 
@@ -71,6 +72,16 @@ export class GarageController {
             // TODO Error Handler
 
             return false;
+        }
+    }
+
+    async getCarAmount(limit: number): Promise<number> {
+        try {
+            const response = await fetch(`${URL}?_limit=${limit}`);
+            const amount = Number(response.headers.get('X-Total-Count'));
+            return amount;
+        } catch (error) {
+            return Promise.reject(0);
         }
     }
 }

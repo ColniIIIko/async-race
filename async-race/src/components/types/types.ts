@@ -10,6 +10,11 @@ export interface Winner {
     time: number;
 }
 
+export type getOptions = {
+    _page?: number;
+    _limit?: number;
+};
+
 export type winnersOptions = {
     _page?: number;
     _limit?: number;
