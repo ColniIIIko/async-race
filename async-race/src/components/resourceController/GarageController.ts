@@ -28,7 +28,7 @@ export class GarageController {
         }
     }
 
-    async createCar(body: Car) {
+    async createCar(body: Pick<Car, 'name' | 'color'>) {
         try {
             const response: Response = await fetch(URL, {
                 method: 'POST',
