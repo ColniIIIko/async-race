@@ -37,6 +37,8 @@ export class Garage {
     private setClickHandlers() {
         const createCarBtn = document.querySelector('.create-car__btn') as HTMLElement;
         createCarBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+
             const carName = (document.querySelector('.create-car-name') as HTMLInputElement).value;
             const carColor = (document.querySelector('.create-car-color') as HTMLInputElement).value;
             this.garageController
@@ -46,7 +48,25 @@ export class Garage {
                     if (car && this.carAmount < LIMIT * this.page) CarSpot.draw(car);
                 });
             this.update();
+        });
+
+        const editCarBtn = document.querySelector('.edit-car__btn') as HTMLElement;
+        editCarBtn.addEventListener('click', (event) => {
             event.preventDefault();
+
+            const carName = (document.querySelector('.edit-car-name') as HTMLInputElement).value;
+            const carColor = (document.querySelector('.edit-car-color') as HTMLInputElement).value;
+            const currentCar = document.querySelector('.car-spot_selected') as HTMLElement;
+            const carId = Number(currentCar?.classList[1]);
+
+            if (carId && carName && carColor)
+                this.garageController
+                    .updateCar(carId, { color: carColor, name: carName })
+                    .then((response) => (response ? response.json() : null))
+                    .then((car: Car) => {
+                        if (carId <= this.page * LIMIT && carId >= (this.page - 1) * LIMIT)
+                            CarSpot.update(currentCar, car);
+                    });
         });
     }
 

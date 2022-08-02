@@ -1,6 +1,10 @@
 .car-spot{
     display: flex;
     flex-direction: column;
+
+    &_selected{
+        border: 3px solid red;
+    }
 }
 
 .car-control{

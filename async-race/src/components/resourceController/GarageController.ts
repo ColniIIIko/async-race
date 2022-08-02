@@ -18,7 +18,7 @@ export class GarageController {
 
     async getCar(id: number) {
         try {
-            const response: Response = await fetch(`${URL}/:${id}`);
+            const response: Response = await fetch(`${URL}/${id}`);
             const cars: Car[] = await response.json();
             return cars;
         } catch (error) {
@@ -62,8 +62,11 @@ export class GarageController {
 
     async updateCar(id: number, params: Pick<Car, 'color' | 'name'>) {
         try {
-            const response = await fetch(`${URL}:${id}}`, {
+            const response = await fetch(`${URL}/${id}`, {
                 method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify(params),
             });
 
