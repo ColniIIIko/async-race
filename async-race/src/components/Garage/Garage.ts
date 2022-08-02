@@ -16,6 +16,7 @@ export class Garage {
     constructor() {
         this.garageController = new GarageController();
         this.page = 1;
+        CarSpot.deleteHandler = this.delete.bind(this);
     }
 
     display() {
@@ -103,5 +104,16 @@ export class Garage {
         ) as HTMLElement)!.textContent = `Garage (${this.carAmount.toString()})`;
 
         (document.querySelector('.garage__page') as HTMLElement)!.textContent = `Page #(${this.page})`;
+    }
+
+    private async delete(id: number) {
+        await this.garageController.deleteCar(id);
+        document.querySelector('.garage-spots')!.innerHTML = '';
+        await this.garageController.getCars({ _limit: LIMIT, _page: this.page }).then((cars: Car[]) => {
+            cars.forEach((car) => {
+                CarSpot.draw(car);
+            });
+        });
+        this.update();
     }
 }

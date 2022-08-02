@@ -48,7 +48,7 @@ export class GarageController {
 
     async deleteCar(id: number) {
         try {
-            const response: Response = await fetch(`${URL}:${id}}`, {
+            const response: Response = await fetch(`${URL}/${id}`, {
                 method: 'DELETE',
             });
 
