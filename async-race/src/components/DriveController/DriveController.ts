@@ -1,16 +1,19 @@
 import { EngineController } from '../resourceController/EngineCotroller';
+import { RaceController } from './RaceController';
 
 export class DriveController {
     private engineController: EngineController;
+    private raceController: RaceController;
     private isDriveState: boolean[];
 
     constructor() {
         this.engineController = new EngineController();
+        this.raceController = new RaceController();
         this.isDriveState = [];
     }
 
     driveHandler(car: HTMLElement, btn: HTMLButtonElement) {
-        btn.addEventListener('click', async () => {
+        btn.addEventListener('click', async (event) => {
             let start = 0;
             let isError = false;
             const carId = +car.classList[1];
@@ -29,6 +32,8 @@ export class DriveController {
                     window.requestAnimationFrame(step);
                 } else {
                     this.isDriveState.splice(carId, 1);
+                    if (!event.isTrusted && progress / 1000 >= driveTime)
+                        this.raceController.setWinner(driveTime, car, carId);
                 }
             };
 

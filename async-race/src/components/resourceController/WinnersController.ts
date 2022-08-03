@@ -13,4 +13,35 @@ export class WinnersController {
             // TODO Error Handler
         }
     }
+
+    async getWinner(id: number): Promise<Winner> {
+        const response: Response = await fetch(`${URL}/${id}`);
+        const winner = response.json();
+
+        return winner;
+    }
+
+    async createWinner(body: Winner) {
+        const response: Response = await fetch(URL, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify(body),
+        });
+
+        return response;
+    }
+
+    async updateWinner(id: number, body: Pick<Winner, 'wins' | 'time'>) {
+        const response: Response = await fetch(`${URL}/${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'PUT',
+            body: JSON.stringify(body),
+        });
+
+        return response;
+    }
 }
