@@ -1,6 +1,7 @@
 import { GarageController } from '../resourceController/GarageController';
 import { Car } from '../types/types';
 import { CarSpot } from '../View/CarSpot';
+import { CarGenerator } from './CarGenerator';
 
 const LIMIT = 7;
 enum paginationMove {
@@ -69,6 +70,8 @@ export class Garage {
                             CarSpot.update(currentCar, car);
                     });
         });
+
+        this.setRandomGenerationHandler();
     }
 
     private setPaginationHandler() {
@@ -115,5 +118,21 @@ export class Garage {
             });
         });
         this.update();
+    }
+
+    private setRandomGenerationHandler() {
+        const generatorBtn = document.querySelector('.garage__generate-btn') as HTMLButtonElement;
+        generatorBtn.addEventListener('click', () => {
+            const generator = new CarGenerator();
+            generator.generate().forEach(async (ele) => {
+                const response = await this.garageController.createCar(ele);
+                if (response) {
+                    const car: Car = await response.json();
+                    if (car.id <= this.page * LIMIT && car.id >= (this.page - 1) * LIMIT) CarSpot.draw(car);
+                }
+            });
+
+            this.update();
+        });
     }
 }
