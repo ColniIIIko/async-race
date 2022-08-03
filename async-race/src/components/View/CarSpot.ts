@@ -1,5 +1,8 @@
+import { DriveController } from '../DriveController/DriveController';
 import { Car } from '../types/types';
 import './carSpot.scss';
+
+const driveController = new DriveController();
 
 export class CarSpot {
     static deleteHandler: (id: number) => void;
@@ -25,6 +28,16 @@ export class CarSpot {
         spotClone.querySelector('.car-spot')?.addEventListener('click', (event) => {
             this.spotHighlighting(event, car);
         });
+
+        driveController.driveHandler(
+            spotClone.querySelector('.car-spot')!,
+            spotClone.querySelector('.car-buttons__drive')!
+        );
+
+        driveController.stopHandler(
+            spotClone.querySelector('.car-spot')!,
+            spotClone.querySelector('.car-buttons__stop')!
+        );
 
         spotClone.querySelector('.car-button-delete')?.addEventListener('click', () => {
             this.deleteHandler(car.id);

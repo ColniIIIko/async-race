@@ -18,26 +18,17 @@ export class EngineController {
     }
 
     async startEngine(id: number) {
-        try {
-            const response: Response = await fetch(`${URL}/?id=${id}&status=started`, {
-                method: 'PATCH',
-            });
-            const engineData: engine = await response.json();
-            return engineData;
-        } catch (error) {
-            // TODO Error Handler
-        }
+        const response: Response = await fetch(`${URL}/?id=${id}&status=started`, {
+            method: 'PATCH',
+        });
+        const engineData: engine = await response.json();
+        return engineData;
     }
 
     async driveCar(id: number) {
-        try {
-            const response: Response = await fetch(`${URL}/?id=${id}&status=started`, {
-                method: 'PATCH',
-            });
-            const success: { success: boolean } = await response.json();
-            return success;
-        } catch (error) {
-            // TODO Error Handler
-        }
+        const response: Response = await fetch(`${URL}/?id=${id}&status=drive`, {
+            method: 'PATCH',
+        });
+        return response;
     }
 }
