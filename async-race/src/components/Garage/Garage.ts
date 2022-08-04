@@ -26,7 +26,7 @@ export class Garage {
     display() {
         const garageTemp = document.querySelector('#garage') as HTMLTemplateElement;
         const garageClone = garageTemp.content.cloneNode(true) as HTMLElement;
-        document.querySelector('body')?.append(garageClone);
+        document.querySelector('.content')?.append(garageClone);
 
         this.setClickHandlers();
         this.setPaginationHandler();

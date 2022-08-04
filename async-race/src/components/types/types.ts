@@ -18,7 +18,7 @@ export type getOptions = {
 export type winnersOptions = {
     _page?: number;
     _limit?: number;
-    _sort?: 'id' | 'wins' | 'time';
+    _sort?: 'wins' | 'time';
     _order?: 'ASC' | 'DESC';
 };
 

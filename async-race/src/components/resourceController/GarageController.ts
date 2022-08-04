@@ -17,15 +17,9 @@ export class GarageController {
     }
 
     async getCar(id: number) {
-        try {
-            const response: Response = await fetch(`${URL}/${id}`);
-            const cars: Car[] = await response.json();
-            return cars;
-        } catch (error) {
-            // TODO Error Handler
-
-            return false;
-        }
+        const response: Response = await fetch(`${URL}/${id}`);
+        const cars: Car = await response.json();
+        return cars;
     }
 
     async createCar(body: Pick<Car, 'name' | 'color'>) {

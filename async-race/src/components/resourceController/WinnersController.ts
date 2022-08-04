@@ -5,13 +5,9 @@ const URL = 'http://127.0.0.1:3000/winners';
 
 export class WinnersController {
     async getWinners(params: winnersOptions) {
-        try {
-            const response: Response = await fetch(`${URL}?${toQueryString(params)}`);
-            const winners: Winner[] = await response.json();
-            return winners;
-        } catch (error) {
-            // TODO Error Handler
-        }
+        const response: Response = await fetch(`${URL}?${toQueryString(params)}`);
+        const winners: Winner[] = await response.json();
+        return winners;
     }
 
     async getWinner(id: number): Promise<Winner> {
@@ -43,5 +39,11 @@ export class WinnersController {
         });
 
         return response;
+    }
+
+    async getWinnersAmount(limit: number): Promise<number> {
+        const response = await fetch(`${URL}?_limit=${limit}`);
+        const amount = Number(response.headers.get('X-Total-Count'));
+        return amount;
     }
 }
