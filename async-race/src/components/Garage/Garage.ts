@@ -17,8 +17,8 @@ export class Garage {
     carAmount: number = 0;
 
     constructor() {
-        this.garageController = new GarageController();
         this.raceController = new RaceController();
+        this.garageController = new GarageController();
         this.page = 1;
         CarSpot.deleteHandler = this.delete.bind(this);
     }
@@ -111,6 +111,7 @@ export class Garage {
         ) as HTMLElement)!.textContent = `Garage (${this.carAmount.toString()})`;
 
         (document.querySelector('.garage__page') as HTMLElement)!.textContent = `Page #(${this.page})`;
+        RaceController.carAmount = this.carAmount;
     }
 
     private async delete(id: number) {

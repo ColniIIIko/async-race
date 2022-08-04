@@ -26,12 +26,12 @@ export class DriveController {
             let step = (timestamp: number) => {
                 if (!start) start = timestamp;
                 let progress = timestamp - start;
-
                 if (!isError && progress / 1000 < driveTime && this.isDriveState[carId]) {
                     carWrapper.style.transform = `translateX(${(progress * driveData.velocity) / 1000}px)`;
                     window.requestAnimationFrame(step);
                 } else {
-                    this.isDriveState.splice(carId, 1);
+                    this.isDriveState[carId] = false;
+                    this.engineController.stopEngine(carId);
                     if (!event.isTrusted && progress / 1000 >= driveTime)
                         this.raceController.setWinner(driveTime, car, carId);
                 }

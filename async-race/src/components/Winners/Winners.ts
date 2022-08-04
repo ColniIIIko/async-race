@@ -49,7 +49,7 @@ export class WinnerTable {
                         .getWinners({ _page: this.page, _limit: LIMIT, _sort: 'wins', _order: isASC ? 'ASC' : 'DESC' })
                         .then((winners: Winner[]) => {
                             winners.forEach((winner, index) => this.winnerSpot.draw(winner, index));
-                            isASC != isASC;
+                            isASC = !isASC;
                         });
                 };
             })()
@@ -66,7 +66,7 @@ export class WinnerTable {
                         .getWinners({ _page: this.page, _limit: LIMIT, _sort: 'time', _order: isASC ? 'ASC' : 'DESC' })
                         .then((winners: Winner[]) => {
                             winners.forEach((winner, index) => this.winnerSpot.draw(winner, index));
-                            isASC != isASC;
+                            isASC = !isASC;
                         });
                 };
             })()
@@ -75,7 +75,7 @@ export class WinnerTable {
 
     private setPaginationHandler() {
         const pagination = (move: paginationMove) => {
-            document.querySelector('.garage-spots')!.innerHTML = '';
+            document.querySelector('.winners__content')!.innerHTML = '';
             this.winnersController
                 .getWinners({ _limit: LIMIT, _page: (this.page += move) })
                 .then((winner: Winner[]) => {

@@ -10,8 +10,10 @@ export class WinnersController {
         return winners;
     }
 
-    async getWinner(id: number): Promise<Winner> {
+    async getWinner(id: number): Promise<Winner | null> {
         const response: Response = await fetch(`${URL}/${id}`);
+        console.log(response);
+        if (!response.ok) return null;
         const winner = response.json();
 
         return winner;
