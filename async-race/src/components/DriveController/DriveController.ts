@@ -32,8 +32,11 @@ export class DriveController {
                 } else {
                     this.isDriveState[carId] = false;
                     this.engineController.stopEngine(carId);
-                    if (!event.isTrusted && progress / 1000 >= driveTime)
-                        this.raceController.setWinner(driveTime, car, carId);
+                    if (!event.isTrusted) {
+                        if (isError) this.raceController.setWinner(driveTime, car, carId, isError);
+                        else if (progress / 1000 >= driveTime)
+                            this.raceController.setWinner(driveTime, car, carId, isError);
+                    }
                 }
             };
 

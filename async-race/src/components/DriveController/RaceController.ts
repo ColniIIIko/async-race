@@ -2,18 +2,19 @@ import { WinnersController } from '../resourceController/WinnersController';
 
 export class RaceController {
     winnerController: WinnersController;
-    totalFinished: number;
+    static totalFinished: number;
+    static totalBroken: number;
     static carAmount: number;
 
     constructor() {
         this.winnerController = new WinnersController();
-        this.totalFinished = 0;
+        RaceController.totalFinished = 0;
+        RaceController.totalBroken = 0;
     }
 
-    setWinner(time: number, car: HTMLElement, carId: number) {
-        this.totalFinished++;
-        console.log(this.totalFinished, RaceController.carAmount);
-        if (this.totalFinished === 1) {
+    setWinner(time: number, car: HTMLElement, carId: number, isError: boolean) {
+        isError ? RaceController.totalBroken++ : RaceController.totalFinished++;
+        if (RaceController.totalFinished === 1 && !isError) {
             this.showWinnerMessage(time, car);
             this.winnerController.getWinner(carId).then((prevWin) => {
                 if (prevWin) {
@@ -27,8 +28,10 @@ export class RaceController {
             });
         }
 
-        console.log(this.totalFinished, RaceController.carAmount);
-        if (this.totalFinished === RaceController.carAmount) this.totalFinished = 0;
+        if (RaceController.totalFinished + RaceController.totalBroken === RaceController.carAmount) {
+            RaceController.totalFinished = 0;
+            RaceController.totalBroken = 0;
+        }
     }
 
     showWinnerMessage(time: number, car: HTMLElement) {

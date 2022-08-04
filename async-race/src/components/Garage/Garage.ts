@@ -111,7 +111,7 @@ export class Garage {
         ) as HTMLElement)!.textContent = `Garage (${this.carAmount.toString()})`;
 
         (document.querySelector('.garage__page') as HTMLElement)!.textContent = `Page #(${this.page})`;
-        RaceController.carAmount = this.carAmount;
+        RaceController.carAmount = this.carAmount <= 7 ? this.carAmount : 7;
     }
 
     private async delete(id: number) {
