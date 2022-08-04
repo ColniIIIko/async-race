@@ -1,0 +1,9 @@
+.pagination-control > *{
+    width: 40px;
+    height: 30px;
+    border: 2px solid wheat;
+    box-shadow: #FFF 2px 2px;
+    margin-left: 5px;
+
+    @include hover-btn(translate(2px,2px));
+}

@@ -9,37 +9,42 @@
   <body>
 
     <template id="root">
-      <button class="garage-btn">To garage</button>
-      <button class="winners-btn">To Winners</button>
-      <div class="content"></div>
+      <div class="root">
+        <button class="garage-btn root__btn">To garage</button>
+        <button class="winners-btn root__btn">To Winners</button>
+        <div class="content"></div>
+      </div>
     </template>
 
     <template id="garage">
       <div class="garage">
         <div class="create-car">
           <form class="create-car__form">
-            <h3>Create</h3>
-            <input type="text" class="create-car-name">
-            <input type="color" class="create-car-color">
-            <button class="create-car__btn">Create</button>
+            <h3 class="form-title">Create</h3>
+            <input type="text" class="create-car-name garage__input">
+            <input type="color" class="create-car-color garage__input">
+            <button class="create-car__btn garage__btn">Create</button>
           </form>
         </div>
         <div class="edit-car">
           <form class="edit-car__form">
-            <h3>Edit</h3>
-            <input type="text" class="edit-car-name">
-            <input type="color" class="edit-car-color">
-            <button class="edit-car__btn">Edit</button>
+            <h3 class="form-title">Edit</h3>
+            <input type="text" class="edit-car-name garage__input">
+            <input type="color" class="edit-car-color garage__input">
+            <button class="edit-car__btn garage__btn">Edit</button>
           </form>
         </div>
         <button class="garage__generate-btn">Generate Cars</button>
-        <button class="garage__race-btn">StartRace</button>
+        <div class="race-controls">
+          <button class="garage__race-btn">Start Race</button>
+          <button class="garage__race-end-btn">End Race</button>
+        </div>
         <h1 class="garage__title">Garage</h1>
         <p class="garage__page"></p>
         <div class="garage-spots"></div>
         <div class="pagination-control">
-          <button class="pagination-control__backward">Back</button>
-          <button class="pagination-control__forward">Forward</button>
+          <button class="pagination-control__backward">&lt;</button>
+          <button class="pagination-control__forward">></button>
         </div>
       </div>
     </template>
@@ -95,7 +100,7 @@
       <h1 class="winners__title">Garage</h1>
       <p class="winners__page"></p>
       <table class="winners">
-        <thead class="Winners__head">
+        <thead class="winners__head">
           <th class="winners__head__number">Number</th>
           <th class="winners__head__car">Car</th>
           <th class="winners__head__name">Name</th>
@@ -107,8 +112,8 @@
         </tbody>
       </table>
       <div class="pagination-control">
-        <button class="pagination-control__backward">Back</button>
-        <button class="pagination-control__forward">Forward</button>
+        <button class="pagination-control__backward">&lt;</button>
+        <button class="pagination-control__forward">></button>
       </div>
     </template>
 

@@ -1,6 +1,5 @@
 import { DriveController } from '../DriveController/DriveController';
 import { Car } from '../types/types';
-import './carSpot.scss';
 
 const driveController = new DriveController();
 

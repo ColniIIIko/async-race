@@ -1,0 +1,86 @@
+.garage{
+    &__input{
+        width: 180px;
+        height: 30px;
+        outline: none;
+        vertical-align: middle;
+        font-size: 20px;
+        border-radius: 6px;
+        background-color: rgb(101, 173, 107);
+        color:#000;
+        padding: 0 5px;
+        margin-right: 5px;
+
+        &::placeholder{
+            color:rgba(27, 24, 24, 0.822)
+        }
+    }
+
+    &__btn{
+        width: 80px;
+        height: 24px;
+        border: 2px solid wheat;
+        box-shadow: #FFF 2px 2px;
+        margin-left: 5px;
+
+        @include hover-btn(translate(2px,2px));
+
+    }
+
+    &__generate-btn{
+        margin: 25px 0px;
+        width: 120px;
+        height: 24px;
+        border: 2px solid wheat;
+        box-shadow: #FFF 2px 2px;
+        margin-left: 5px;
+
+        @include hover-btn(translate(2px,2px));
+    }
+
+    &__title{
+        margin-bottom: 10px;
+    }
+
+    &__page{
+        font-size: 18px;
+        margin-bottom: 40px;
+    }
+}
+
+.garage-spots{
+    height: 900px;
+}
+
+.form-title{
+    margin-bottom: 6px;
+    font-size: 24px;
+}
+
+.create-car-color,
+.edit-car-color{
+    width: 80px;
+    background-color: rgb(78, 76, 76);
+}
+
+.create-car{
+    margin-bottom: 20px;
+}
+
+.race-controls{
+    display: flex;
+    column-gap: 10px;
+    margin-bottom: 40px;
+
+    & *{
+        width: 120px;
+        height: 24px;
+        border: 2px solid wheat;
+        box-shadow: #FFF 2px 2px;
+        margin-left: 5px;
+
+        @include hover-btn(translate(2px,2px));
+    }
+}
+
+

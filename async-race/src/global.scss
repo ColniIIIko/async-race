@@ -1,0 +1,45 @@
+@mixin hover-btn($translation) {
+    transition: all .2s linear;
+    cursor: pointer;
+
+    &:hover{
+        transform: $translation;
+        box-shadow: none;
+    }
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #000;
+    color: rgb(253, 226, 249);
+}
+
+.root{
+    margin: 10px;
+
+    &__btn{
+        width: 136px;
+        height: 30px;
+        margin-right: 20px;
+        border: none;
+        background: rgba(198, 233, 118, 0.966);
+        box-shadow: rgb(182, 249, 250) 4px 4px;
+        color:#000;
+        font-size: 20px;
+        @include hover-btn(translate(4px,4px));
+
+    }
+}
+
+.content{
+    margin: 40px 20px;
+}
+
+@import './styles/garage';
+@import './styles/pagination';
+@import './styles/carSpot';
+@import './styles/winners';
+
+

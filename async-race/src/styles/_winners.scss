@@ -1,0 +1,27 @@
+.winners{
+    border: 1px solid wheat;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+
+    &__title{
+        margin-bottom: 10px;
+    }
+
+    &__page{
+        font-size: 18px;
+        margin-bottom: 40px;
+    }
+
+    &__head th{
+        padding: 2px 10px;
+        text-align: center;
+        background-color: rgb(214, 209, 199);
+        color: black
+    }
+
+    &__content td{
+        padding: 2px 10px;
+        text-align: center;
+    }
+    
+}
