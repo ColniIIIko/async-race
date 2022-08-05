@@ -1,5 +1,6 @@
 import { RaceController } from '../DriveController/RaceController';
 import { GarageController } from '../resourceController/GarageController';
+import { WinnersController } from '../resourceController/WinnersController';
 import { Car } from '../types/types';
 import { CarSpot } from '../View/CarSpot';
 import { CarGenerator } from './CarGenerator';
@@ -13,12 +14,14 @@ enum paginationMove {
 export class Garage {
     readonly garageController: GarageController;
     readonly raceController: RaceController;
+    readonly winnerController: WinnersController;
     page: number;
     carAmount: number = 0;
 
     constructor() {
         this.raceController = new RaceController();
         this.garageController = new GarageController();
+        this.winnerController = new WinnersController();
         this.page = 1;
         CarSpot.deleteHandler = this.delete.bind(this);
     }
@@ -116,6 +119,7 @@ export class Garage {
 
     private async delete(id: number) {
         await this.garageController.deleteCar(id);
+        await this.winnerController.deleteWinner(id);
         document.querySelector('.garage-spots')!.innerHTML = '';
         await this.garageController.getCars({ _limit: LIMIT, _page: this.page }).then((cars: Car[]) => {
             cars.forEach((car) => {

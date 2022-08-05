@@ -48,4 +48,18 @@ export class WinnersController {
         const amount = Number(response.headers.get('X-Total-Count'));
         return amount;
     }
+
+    async deleteWinner(id: number) {
+        try {
+            const response = await fetch(`${URL}/${id}`, {
+                method: 'DELETE',
+            });
+
+            return response;
+        } catch (error) {
+            // TODO Error Handler
+
+            return false;
+        }
+    }
 }
