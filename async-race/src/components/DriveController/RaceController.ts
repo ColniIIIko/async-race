@@ -43,6 +43,8 @@ export class RaceController {
         messageClone.querySelector('.car-time')!.textContent = time.toFixed(2);
 
         document.querySelector('body')?.append(messageClone);
+
+        setTimeout(() => document.querySelector('.message')?.remove(), 5000);
     }
 
     raceHandler(btn: HTMLButtonElement, garage: HTMLElement) {
