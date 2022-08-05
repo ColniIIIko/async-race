@@ -142,8 +142,9 @@ export class Garage {
     }
 
     private setRaceController() {
-        const btn = document.querySelector('.garage__race-btn') as HTMLButtonElement;
+        const btnStart = document.querySelector('.garage__race-btn') as HTMLButtonElement;
+        const btnEnd = document.querySelector('.garage__race-end-btn') as HTMLButtonElement;
         const garage = document.querySelector('.garage') as HTMLElement;
-        this.raceController.raceHandler(btn, garage);
+        this.raceController.raceHandler(btnStart, btnEnd, garage);
     }
 }

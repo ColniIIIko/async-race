@@ -29,9 +29,17 @@ export class RaceController {
         }
 
         if (RaceController.totalFinished + RaceController.totalBroken === RaceController.carAmount) {
-            RaceController.totalFinished = 0;
-            RaceController.totalBroken = 0;
+            this.raceEnd();
         }
+    }
+
+    private raceEnd() {
+        RaceController.totalFinished = 0;
+        RaceController.totalBroken = 0;
+        const buttons = document.querySelectorAll('button') as NodeListOf<HTMLButtonElement>;
+        buttons.forEach((button) => {
+            if (button.className != 'garage__race-end-btn') button.disabled = false;
+        });
     }
 
     showWinnerMessage(time: number, car: HTMLElement) {
@@ -47,12 +55,26 @@ export class RaceController {
         setTimeout(() => document.querySelector('.message')?.remove(), 5000);
     }
 
-    raceHandler(btn: HTMLButtonElement, garage: HTMLElement) {
-        btn.addEventListener('click', () => {
+    raceHandler(btnStart: HTMLButtonElement, btnEnd: HTMLButtonElement, garage: HTMLElement) {
+        btnStart.addEventListener('click', () => {
             const cars = garage.querySelectorAll('.car-spot');
+            const buttons = document.querySelectorAll('button') as NodeListOf<HTMLButtonElement>;
             cars.forEach((spot) => {
                 spot.querySelector('.car-buttons__drive')?.dispatchEvent(new Event('click'));
             });
+
+            buttons.forEach((button) => {
+                if (button.className !== 'garage__race-end-btn') button.disabled = true;
+            });
+        });
+
+        btnEnd.addEventListener('click', () => {
+            const cars = garage.querySelectorAll('.car-spot');
+            cars.forEach((spot) => {
+                spot.querySelector('.car-buttons__stop')?.dispatchEvent(new Event('click'));
+            });
+
+            this.raceEnd();
         });
     }
 }
