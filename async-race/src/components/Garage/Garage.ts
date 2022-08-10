@@ -72,10 +72,7 @@ export class Garage {
                 this.garageController
                     .updateCar(carId, { color: carColor, name: carName })
                     .then((response) => (response ? response.json() : null))
-                    .then((car: Car) => {
-                        if (carId <= this.page * LIMIT && carId >= (this.page - 1) * LIMIT)
-                            CarSpot.update(currentCar, car);
-                    });
+                    .then((car: Car) => { CarSpot.update(currentCar, car); });
         });
 
         this.setRandomGenerationHandler();
